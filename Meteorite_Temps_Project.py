@@ -4,11 +4,10 @@ Created on Thu Aug 15 10:41:02 2019
 
 @author: Carlo Mungioli
 """
+import math
+
 
 def MeteoriteTemps():
-    import math
-    
-    
     #This section creates lists for the radii and thermal conductivities of each layer.
     #It also specifies necessary values such as temperatures and lengths of time.
     #We have multiple try/except blocks so we can retry inputting values if the initial entry is invalid
@@ -145,5 +144,9 @@ def MeteoriteTemps():
         return
     else:
         print("\nA clump of ice with mass",m,"kgs would stay frozen at the radius specified")
-        
-MeteoriteTemps()
+       
+
+if __name__ == '__main__': 
+    MeteoriteTemps()
+
+
