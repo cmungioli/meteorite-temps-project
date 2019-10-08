@@ -5,6 +5,7 @@ Created on Thu Aug 15 10:41:02 2019
 @author: Carlo Mungioli
 """
 import math
+import sys
 
 
 def input_data():
@@ -52,8 +53,6 @@ def input_data():
             continue
         timeentered = True
     kmultrList = [(radiiList[0] * thermcondList[0])]
-
-
 
     yesnoentered = False
     while yesnoentered == False:
@@ -110,8 +109,24 @@ def input_data():
 
 
 
+def test_dataset():
+    radiiList
+    thermcondList
+    kmultrList
+    k
+    Tcold = 200.0
+    Thot = 2500.0
+    ruser
+    t
+    
+    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t
+def file_data( fname):
+    with open( fname, 'rt') as fp:
+        ...
+
+    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t
 def do_calc(radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t):
-    #Doing the calculations
+    """Doing the calculations"""
     R = sum(radiiList)
     
     for x in range(1,len(radiiList)):
@@ -143,8 +158,16 @@ def ice_compare( Q, Tcold, ruser):
               .format(m) )
 
 if __name__ == '__main__':
- 
-    radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = input_data()
+    
+    if len(sys.argv) > 1:
+        if os.path.isfile( sys.argv[1]):
+            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = file_data()
+        elif sys.argv[1] == '-t':
+            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = test_dataset()
+        else:
+            exit()
+    else:
+        radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = input_data()
 
     q, Q, k = do_calc( radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t)
     

@@ -9,8 +9,10 @@
 <v t="martin.20191008111119.1"><vh>main code</vh>
 <v t="martin.20191008111119.2"><vh>@clean ./Meteorite_Temps_Project.py</vh>
 <v t="martin.20191008112746.1"><vh>docs</vh></v>
-<v t="martin.20191008111119.3"><vh>Declarations</vh></v>
+<v t="martin.20191008111119.3"><vh>imports</vh></v>
 <v t="martin.20191008111119.4"><vh>input data</vh></v>
+<v t="martin.20191008134903.1"><vh>test dataset</vh></v>
+<v t="martin.20191008135253.1"><vh>load from file</vh></v>
 <v t="martin.20191008112508.1"><vh>do calc</vh></v>
 <v t="martin.20191008112519.1"><vh>print results</vh></v>
 <v t="martin.20191008112511.1"><vh>ice compare</vh></v>
@@ -28,6 +30,7 @@
 @tabwidth -4
 </t>
 <t tx="martin.20191008111119.3">import math
+import sys
 
 
 </t>
@@ -76,8 +79,6 @@
             continue
         timeentered = True
     kmultrList = [(radiiList[0] * thermcondList[0])]
-
-
 
     yesnoentered = False
     while yesnoentered == False:
@@ -136,8 +137,16 @@
 
 </t>
 <t tx="martin.20191008111245.1">if __name__ == '__main__':
- 
-    radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = input_data()
+    
+    if len(sys.argv) &gt; 1:
+        if os.path.isfile( sys.argv[1]):
+            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = file_data()
+        elif sys.argv[1] == '-t':
+            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = test_dataset()
+        else:
+            exit()
+    else:
+        radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = input_data()
 
     q, Q, k = do_calc( radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t)
     
@@ -145,7 +154,7 @@
     
     ice_compare( Q, Tcold, ruser)</t>
 <t tx="martin.20191008112508.1">def do_calc(radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t):
-    #Doing the calculations
+    """Doing the calculations"""
     R = sum(radiiList)
     
     for x in range(1,len(radiiList)):
@@ -184,5 +193,21 @@ Created on Thu Aug 15 10:41:02 2019
 @author: Carlo Mungioli
 """
 </t>
+<t tx="martin.20191008134903.1">def test_dataset():
+    radiiList
+    thermcondList
+    kmultrList
+    k
+    Tcold = 200.0
+    Thot = 2500.0
+    ruser
+    t
+    
+    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t</t>
+<t tx="martin.20191008135253.1">def file_data( fname):
+    with open( fname, 'rt') as fp:
+        ...
+
+    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t</t>
 </tnodes>
 </leo_file>
