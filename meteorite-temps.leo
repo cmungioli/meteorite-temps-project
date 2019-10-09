@@ -205,8 +205,20 @@ Created on Thu Aug 15 10:41:02 2019
     
     return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t</t>
 <t tx="martin.20191008135253.1">def file_data( fname):
+    """read data from file. file format is csv:
+    #comment first line
+    5 fields, giving k, Tcold, Thot, ruser, t
+    n lines of 3 fields, giving radii, thermcond, kmultr 
+    """
     with open( fname, 'rt') as fp:
-        ...
+        ln = fp.readline() #comment line, ignore
+        k, Tcold, Thot, ruser, t = fp.readline().split(',')
+        radiiList, thermcondList, kmultrList = [],[],[]
+        for ln in fp.readlines():
+            lin = ln.split(',')
+            radiiList.append( lin[0].strip() )
+            thermcondList.append( lin[1].strip() )
+            kmultrList.append( lin[2].strip() )
 
     return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t</t>
 </tnodes>
