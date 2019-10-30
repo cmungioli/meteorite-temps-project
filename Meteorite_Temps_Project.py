@@ -56,10 +56,10 @@ def input_data():
 
     yesnoentered = False
     while yesnoentered == False:
-        yesno = input("Add another layer? (y/n): ")
-        if yesno == "y" or yesno == "yes" or yesno == "Y":
+        yesnostr = input("Add another layer? (y/n): ")
+        if yesnostr == "y" or yesnostr == "yes" or yesnostr == "Y":
             yesno = True
-        elif yesno == "n" or yesno == "no" or yesno == "N":
+        elif yesnostr == "n" or yesnostr == "no" or yesnostr == "N":
             yesno = False
         else:
             print("Error: please enter yes or no")
@@ -105,7 +105,7 @@ def input_data():
 
     ruser = input("Enter the radius to which the heat conduction rate will be found. (m): ")
     
-    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t
+    return radiiList, thermcondList, kmultrList, Tcold, Thot, float(ruser), t
 
 
 
@@ -113,17 +113,16 @@ def test_dataset():
     radiiList
     thermcondList
     kmultrList
-    k
     Tcold = 200.0
     Thot = 2500.0
     ruser
     t
     
-    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t
+    return radiiList, thermcondList, kmultrList, Tcold, Thot, float(ruser), t
 def file_data( fname):
     """read data from file. file format is csv:
     #comment first line
-    5 fields, giving k, Tcold, Thot, ruser, t
+    4 fields, giving k, Tcold, Thot, ruser
     n lines of 3 fields, giving radii, thermcond, kmultr 
     """
     with open( fname, 'rt') as fp:
@@ -136,8 +135,8 @@ def file_data( fname):
             thermcondList.append( lin[1].strip() )
             kmultrList.append( lin[2].strip() )
 
-    return radiiList, thermcondList, kmultrList, k, Tcold, Thot, float(ruser), t
-def do_calc(radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t):
+    return radiiList, thermcondList, kmultrList, Tcold, Thot, float(ruser), t
+def do_calc(radiiList, thermcondList, kmultrList, Tcold, Thot, ruser, t):
     """Doing the calculations"""
     R = sum(radiiList)
     
@@ -173,15 +172,15 @@ if __name__ == '__main__':
     
     if len(sys.argv) > 1:
         if os.path.isfile( sys.argv[1]):
-            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = file_data()
+            radiiList, thermcondList, kmultrList, Tcold, Thot, ruser, t = file_data()
         elif sys.argv[1] == '-t':
-            radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = test_dataset()
+            radiiList, thermcondList, kmultrList, Tcold, Thot, ruser, t = test_dataset()
         else:
             exit()
     else:
-        radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t = input_data()
+        radiiList, thermcondList, kmultrList, Tcold, Thot, ruser, t = input_data()
 
-    q, Q, k = do_calc( radiiList, thermcondList, kmultrList, k, Tcold, Thot, ruser, t)
+    q, Q, k = do_calc( radiiList, thermcondList, kmultrList, Tcold, Thot, ruser, t)
     
     print_results( q, Q)
     
